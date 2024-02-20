@@ -28,6 +28,8 @@ Route::get('/createblog', [BlogController::class, 'create'] )->name('createblog'
 Route::post('/createBlog', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');
 
 Route::post('/likePost/{id}/{user_id}', [BlogController::class, 'likePost'])->name('likePost')->middleware('auth');
+Route::post('/unlikePost/{id}/{user_id}', [BlogController::class, 'unlikePost'])->name('unlikePost')->middleware('auth');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

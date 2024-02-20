@@ -15,6 +15,7 @@ class BlogController extends Controller
         $user=Auth::user();
         return view('/dashboard', 
                     ['blogs' => Blog::with('author')->orderBy('created_at', 'desc')->get()],
+                    ['userLiked' => UserLike::where('user_id', $user->id)->get()],
                 );
     }
 
@@ -47,6 +48,19 @@ class BlogController extends Controller
             'user_id' => $user->id,
             "blog_id" => $id,
         ]);
+
+        return redirect('/dashboard');
+
+    }
+
+    public function unlikePost($id, $user_id){
+        $user=Auth::user();
+
+        $increment_blog_likes = Blog::find($id);
+        $increment_blog_likes->decrement('blog_likes');
+
+        $remove_user_like_blog = UserLike::where('blog_id', $id)->where('user_id', $user-> id)->delete();
+        // \Log::info(UserLike::where('blog_id', $id)->where('user_id', $user_id)->toSql());
 
         return redirect('/dashboard');
 
