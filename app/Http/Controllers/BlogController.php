@@ -4,18 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\User;
+use App\Models\UserLike;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
 
 class BlogController extends Controller
 {
     public function showBlogs(){
         $user=Auth::user();
         return view('/dashboard', 
-                    ['blogs' => Blog::with('author')->orderBy('updated_at', 'desc')->get()],
+                    ['blogs' => Blog::with('author')->orderBy('created_at', 'desc')->get()],
                 );
     }
 
@@ -41,15 +40,15 @@ class BlogController extends Controller
     public function likePost($id, $user_id){
         $user=Auth::user();
 
-        $fetch_blog_likes = Blog::find($id);
-        
-        $update_blog_like = Blog::where('id', $id)->update([
-            'blog_likes' => $fetch_blog_likes->increment('blog_likes'),
+        $increment_blog_likes = Blog::find($id);
+        $increment_blog_likes->increment('blog_likes');
+
+        $add_user_like_blog = UserLike::create([
+            'user_id' => $user->id,
+            "blog_id" => $id,
         ]);
 
-        return view('/dashboard', 
-            ['blogs' => Blog::with('author')->orderBy('created_at', 'desc')->get()],
-        );
+        return redirect('/dashboard');
 
     }
 
