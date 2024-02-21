@@ -20,9 +20,10 @@ Route::get('/', function () {
     return view('/welcome');
 });
 
-Route::get('/dashboard', [BlogController::class, 'showBlogs'] )->name('dashboard')->middleware('auth');;
-
+Route::get('/dashboard', [BlogController::class, 'showBlogs'] )->name('dashboard')->middleware('auth');
 Route::get('/createblog', [BlogController::class, 'create'] )->name('createblog')->middleware('auth');
+Route::get('/profileview', [ProfileController::class, 'showProfile'] )->name('profileview')->middleware('auth');
+
 
 // site functions
 Route::post('/createBlog', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');

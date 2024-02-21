@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Blog;
+use App\Models\UserLike;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -56,5 +59,13 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function showProfile(){
+        $user = Auth::user();
+        return view('/profile.view', ['blogs' => Blog::where('user_id',$user->id)->orderBy('created_at', 'desc')->get()], 
+                                ['userLiked' => UserLike::where('user_id', $user->id)->get()],
+                    );
+
     }
 }
