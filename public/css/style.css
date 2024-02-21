@@ -16,6 +16,7 @@
     padding: 20px;
     width: 40%; /* Adjust the width of each card as needed */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
 }
 
 /* Additional styling for blog title */
