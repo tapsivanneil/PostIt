@@ -66,6 +66,19 @@ class BlogController extends Controller
 
     }
 
+
+    public function deletePost($id){
+        $user=Auth::user();
+
+        $remove_user_blog = Blog::where('id', $id)->delete();
+
+        $remove_blog_from_user_like = UserLike::where('blog_id', $id)->delete();
+        // \Log::info(UserLike::where('blog_id', $id)->where('user_id', $user_id)->toSql());
+
+        return redirect('/profileview');
+
+    }
+
 }
 
   // $create_sample_blog = Blog::create([

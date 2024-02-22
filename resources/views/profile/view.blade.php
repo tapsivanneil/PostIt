@@ -9,9 +9,14 @@
                 <div class="blog-card-footer" >
                     <div>Likes: {{$blog->blog_likes}}</div>
                     <div>{{$blog->updated_at}}</div>
-                </div>
+                    <div>
+                        <form action="{{route('deletePost', $blog->id)}}" method="post">
+                            @csrf
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
 
-                
+                </div>
             </div>
         
         @endforeach

@@ -30,7 +30,7 @@ Route::post('/createBlog', [BlogController::class, 'createBlog'])->name('createB
 
 Route::post('/likePost/{id}/{user_id}', [BlogController::class, 'likePost'])->name('likePost')->middleware('auth');
 Route::post('/unlikePost/{id}/{user_id}', [BlogController::class, 'unlikePost'])->name('unlikePost')->middleware('auth');
-
+Route::post('/unlikePost/{id}', [BlogController::class, 'deletePost'])->name('deletePost')->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
