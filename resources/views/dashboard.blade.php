@@ -21,6 +21,15 @@
 
                     
                     <div>{{$blog->blog_likes}}</div>
+                    
+                    <div>
+                        <form action="{{route('commentBlog', $blog->id)}}" method="post">
+                            @csrf
+                            <input type="text" name="user_comment">
+                            <input type="submit" value="Comment">
+                        </form>
+                    </div>
+                    
                     <div>{{$blog->updated_at}}</div>
                 </div>
 

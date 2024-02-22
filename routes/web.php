@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserCommentsController;
 
 
 /*
@@ -30,7 +31,10 @@ Route::post('/createBlog', [BlogController::class, 'createBlog'])->name('createB
 
 Route::post('/likePost/{id}/{user_id}', [BlogController::class, 'likePost'])->name('likePost')->middleware('auth');
 Route::post('/unlikePost/{id}/{user_id}', [BlogController::class, 'unlikePost'])->name('unlikePost')->middleware('auth');
-Route::post('/unlikePost/{id}', [BlogController::class, 'deletePost'])->name('deletePost')->middleware('auth');
+Route::post('/deletePost/{id}', [BlogController::class, 'deletePost'])->name('deletePost')->middleware('auth');
+Route::post('/comment/{id}', [UserCommentsController::class, 'commentBlog'])->name('commentBlog')->middleware('auth');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
