@@ -18,18 +18,15 @@
                             <button type="submit">Like</button>
                         </form>
                     @endif
-                    
-                    <div>{{$blog->blog_likes}}</div>
-                    
                     <div style="display: flex">
-                        <form action="{{ route('commentBlog', $blog->id) }}" method="post">
+                        <form action="{{route('commentBlogStay', $blogs_id->id)}}" method="post">
                             @csrf
                             <input type="text" name="user_comment">
                             <input type="submit" value="Comment">
                         </form>
-                        <a href="{{ route('viewComments', $blog->id) }}">View Comments</a>
                     </div>
                     
+                    <div>{{$blog->blog_likes}}</div>
                     <div>{{$blog->updated_at}}</div>
                 </div>
 
@@ -37,7 +34,20 @@
             </div>
         
         @endforeach
-    </div>
+
+
+
+        @foreach ($comments as $comment)
+            <div class="blog-card">
+                <div></div>
+                <div></div>
+                <div>{{$comment->comment}}</div>
+                <div class="blog-card-footer" >
+                </div>
+            </div>
+        @endforeach
+
+
 
     <a href="{{ route('createblog') }}" class="blog-link">Blog</a>
 

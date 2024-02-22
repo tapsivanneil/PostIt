@@ -66,7 +66,6 @@ class BlogController extends Controller
 
     }
 
-
     public function deletePost($id){
         $user=Auth::user();
 

@@ -25,6 +25,7 @@ Route::get('/dashboard', [BlogController::class, 'showBlogs'] )->name('dashboard
 Route::get('/createblog', [BlogController::class, 'create'] )->name('createblog')->middleware('auth');
 Route::get('/profileview', [ProfileController::class, 'showProfile'] )->name('profileview')->middleware('auth');
 
+Route::get('/comments', [ProfileController::class, 'viewComments'] )->name('viewComments')->middleware('auth');
 
 // site functions
 Route::post('/createBlog', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');
@@ -32,7 +33,12 @@ Route::post('/createBlog', [BlogController::class, 'createBlog'])->name('createB
 Route::post('/likePost/{id}/{user_id}', [BlogController::class, 'likePost'])->name('likePost')->middleware('auth');
 Route::post('/unlikePost/{id}/{user_id}', [BlogController::class, 'unlikePost'])->name('unlikePost')->middleware('auth');
 Route::post('/deletePost/{id}', [BlogController::class, 'deletePost'])->name('deletePost')->middleware('auth');
-Route::post('/comment/{id}', [UserCommentsController::class, 'commentBlog'])->name('commentBlog')->middleware('auth');
+Route::post('/comments/{id}', [UserCommentsController::class, 'commentBlog'])->name('commentBlog')->middleware('auth');
+Route::post('/comment/{id}', [UserCommentsController::class, 'commentBlogStay'])->name('commentBlogStay')->middleware('auth');
+
+
+Route::get('/comment/{id}', [UserCommentsController::class, 'viewComments'])->name('viewComments')->middleware('auth');
+
 
 
 
