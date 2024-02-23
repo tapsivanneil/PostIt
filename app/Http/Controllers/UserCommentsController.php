@@ -36,6 +36,7 @@ class UserCommentsController extends Controller
             'blogs'=> Blog::join('users', 'users.id', '=', 'blogs.user_id')->where('blogs.id', $id)->get(),
             'userLiked' => UserLike::where('user_id', $user->id)->get(),
             'blogs_id' =>Blog::find($id),
+            'user_id' =>$user,
         ]);
     }
 
@@ -47,8 +48,20 @@ class UserCommentsController extends Controller
                     'blogs'=> Blog::join('users', 'users.id', '=', 'blogs.user_id')->where('blogs.id', $id)->get(),
                     'userLiked' => UserLike::where('user_id', $user->id)->get(),
                     'blogs_id' =>Blog::find($id),
+                    'user_id' =>$user,
                 ]);
         
+    }
+
+    public function deleteComment($id){
+        $user = Auth::user();
+        $delete_comment_id =UserComment::find($id);
+        $delete_comment = UserComment::where('id', $id)->delete();
+       
+        // \Log::info("User {$user->id} deleted comment with ID: $delete_comment_id");
+        return redirect()->route('viewComments', ['id' => $delete_comment_id->blog_id]);
+
+       
     }
 
 }

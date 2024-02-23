@@ -35,6 +35,7 @@ Route::post('/unlikePost/{id}/{user_id}', [BlogController::class, 'unlikePost'])
 Route::post('/deletePost/{id}', [BlogController::class, 'deletePost'])->name('deletePost')->middleware('auth');
 Route::post('/comments/{id}', [UserCommentsController::class, 'commentBlog'])->name('commentBlog')->middleware('auth');
 Route::post('/comment/{id}', [UserCommentsController::class, 'commentBlogStay'])->name('commentBlogStay')->middleware('auth');
+Route::post('/deleteComment/{id}', [UserCommentsController::class, 'deleteComment'])->name('deleteComment')->middleware('auth');
 
 
 Route::get('/comment/{id}', [UserCommentsController::class, 'viewComments'])->name('viewComments')->middleware('auth');

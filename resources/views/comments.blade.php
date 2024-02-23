@@ -29,7 +29,6 @@
                     <div>{{$blog->blog_likes}}</div>
                     <div>{{$blog->updated_at}}</div>
                 </div>
-
                 
             </div>
         
@@ -41,7 +40,16 @@
             <div class="blog-card">
                 <div></div>
                 <div></div>
-                <div>{{$comment->comment}}</div>
+                <div>{{$comment->comment}}
+                    @if ($comment->user_id == $user_id->id)
+                            <form action="{{route('deleteComment', $comment->id)}}" method="post">
+                                @csrf
+                                <button type="submit">Delete</button>
+                            </form>
+
+                    @endif
+
+                </div>
                 <div class="blog-card-footer" >
                 </div>
             </div>
